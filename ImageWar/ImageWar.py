@@ -16,7 +16,7 @@ class ImgWar():
 if __name__ == '__main__':
     imgWar = ImgWar()
     keyWord = 'cat'
-    # imgWar.getImg('google',keyWord)
-    imgWar.getImg('baidu',keyWord)
+    imgWar.getImg('google',keyWord)
+    # imgWar.getImg('baidu',keyWord)
 
 

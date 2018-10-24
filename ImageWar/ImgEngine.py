@@ -1,4 +1,4 @@
-from google_images_download import google_images_download
+import _google
 import _baidu
 
 # this is interface
@@ -10,7 +10,7 @@ class ImgEngine():
 class Google():
     def getImage(self,keyWord):
         # 說明文件 https://github.com/hardikvasa/google-images-download
-        response = google_images_download.googleimagesdownload()   #class instantiation
+        response = _google.googleimagesdownload()   #class instantiation
         arguments = {"keywords":keyWord,"limit":1,"print_urls":True}   #creating list of arguments
         paths = response.download(arguments)   #passing the arguments to the function
         print(paths)   #printing absolute paths of the downloaded images
@@ -42,8 +42,8 @@ class ImgHandler():
             raise Exception('Not Support this image engine')
 
 if  __name__ == "__main__" :  
-    print (" please input \"ImageEngine\" : ")  
-    engineName= input()  
+     
+    engineName= 'google'  
     ImgHandler = ImgHandler()  
     s = ImgHandler.getImageEngine(engineName)  
     keyWord = 'cat'
