@@ -19,8 +19,6 @@ socket.setdefaulttimeout(timeout)
 class BaiduCrawler:
     # 睡眠时长
     __time_sleep = 0.1
-    __amount = 0
-    __start_amount = 0
     __counter = 0
     headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'}
 
@@ -46,12 +44,12 @@ class BaiduCrawler:
             return par.netloc
 
     # 开始获取
-    def get_images(self, word):
+    def get_images(self, word,limit):
         search = urllib.parse.quote(word)
-        # pn int 图片数
-        pn = self.__start_amount
+        # pn 開始搜尋起點
+        pn = 0
         result = []
-        while pn < self.__amount:
+        while len(result) < limit:
 
             url = 'http://image.baidu.com/search/avatarjson?tn=resultjsonavatarnew&ie=utf-8&word=' + search + '&cg=girl&pn=' + str(
                 pn) + '&rn=60&itg=0&z=0&fr=&width=&height=&lm=-1&ic=0&s=0&st=-1&gsm=1e0000001e'
@@ -73,8 +71,9 @@ class BaiduCrawler:
             else:
                 # 解析json
                 rsp_data = json.loads(rsp)
-                # 取得第一張圖的網址
                 for image in rsp_data['imgs']:
+                    if len(result) >= limit:
+                        return result
                     result.append(image['objURL'])
                 # 读取下一页
                 print("下载下一页")
@@ -84,22 +83,9 @@ class BaiduCrawler:
         print("爬取任务结束")
         return result
 
-    def start(self, word, spider_page_num=1, start_page=1):
-        """
-        爬虫入口
-        :param word: 抓取的关键词
-        :param spider_page_num: 需要抓取数据页数 总抓取图片数量为 页数x60
-        :param start_page:起始页数
-        :return:
-        """
-        self.__start_amount = (start_page - 1) * 60
-        self.__amount = spider_page_num * 60 + self.__start_amount
-        result = self.get_images(word)
-        return result
-
-
 if __name__ == '__main__':
     BaiduCrawler = BaiduCrawler()
-    result = BaiduCrawler.start('cat', 1, 1) 
+    result = BaiduCrawler.get_images('cat', 3) 
     print(result)
+    print(len(result))
 
