@@ -6,17 +6,18 @@ class ImgWar():
     def printtext(self):
         print('hello world')
     
-    def getImg(self, engineName,keyWord):
+    def getImg(self, engineName,keyWord,limit = 5):
         if not keyWord:
             raise Exception('please input keyWords')
         engine = ImgEngine.ImgHandler().getImageEngine(engineName)
-        engine.getImage(keyWord)
+        engine.getImage(keyWord,limit)
 
 
 if __name__ == '__main__':
     imgWar = ImgWar()
     keyWord = 'cat'
-    imgWar.getImg('google',keyWord)
-    # imgWar.getImg('baidu',keyWord)
+    limit = 5
+    imgWar.getImg('google',keyWord,limit)
+    # imgWar.getImg('baidu',keyWord,limit)
 
 
