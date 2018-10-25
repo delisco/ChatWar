@@ -62,15 +62,21 @@ class BaiduCrawler:
             except UnicodeDecodeError as e:
                 print(e)
                 print('-----UnicodeDecodeErrorurl:', url)
+                return result
             except urllib.error.URLError as e:
                 print(e)
                 print("-----urlErrorurl:", url)
+                return result
             except socket.timeout as e:
                 print(e)
                 print("-----socket timout:", url)
+                return result
             else:
                 # 解析json
-                rsp_data = json.loads(rsp)
+                try:
+                    rsp_data = json.loads(rsp)
+                except:
+                    return result
                 for image in rsp_data['imgs']:
                     if len(result) >= limit:
                         return result
@@ -85,7 +91,7 @@ class BaiduCrawler:
 
 if __name__ == '__main__':
     BaiduCrawler = BaiduCrawler()
-    result = BaiduCrawler.get_images('cat', 3) 
+    result = BaiduCrawler.get_images('aasgasgasgjsljgsalkgjaslgjasl;gjas;lgjal;sjglasjglsajgla;gj;sdfasgasgasgasgasgasgasg', 3) 
     print(result)
     print(len(result))
 

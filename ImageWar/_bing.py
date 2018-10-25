@@ -32,7 +32,7 @@ def fetch_images_from_keyword(keyword: str, limit: int):
             last = links[-1]
         except IndexError:
             print('No search results for "{0}"'.format(keyword))
-            return
+            return result
         time.sleep(0.1)
     return result
 
