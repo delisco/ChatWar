@@ -13,11 +13,13 @@ class ImgWar():
         engine.getImage(keyWord,limit)
 
 
+
+
 if __name__ == '__main__':
     imgWar = ImgWar()
     keyWord = 'cat'
     limit = 5
-    imgWar.getImg('google',keyWord,limit)
+    imgWar.getImg(ImgEngine.Engine.google,keyWord,limit)
     # imgWar.getImg('baidu',keyWord,limit)
 
 

@@ -1,6 +1,7 @@
 import _google
 import _baidu
 import _bing
+from enum import Enum
 
 # this is interface
 class ImgEngine():
@@ -36,21 +37,30 @@ class Bing():
 
 
 class ImgHandler():
-    def getImageEngine(self,name):
-        if name== "google" :  
-            return Google()  
-        elif name== "baidu" :  
-            return Baidu()
-        elif name =="bing" :
-            return Bing()
-        else:
+    def getImageEngine(self,Engine):
+        if not isinstance(Engine, Enum):
+            raise Exception('Please input Engine enum')
+        if not Engine.has_value(Engine.value):
             raise Exception('Not Support this image engine')
+        if Engine== Engine.google :  
+            return Google()  
+        elif Engine== Engine.baidu :  
+            return Baidu()
+        elif Engine == Engine.bing :
+            return Bing()
+
+class Engine(Enum):
+    google = 1
+    baidu = 2
+    bing = 3
+    @classmethod
+    def has_value(cls, value):
+        return any(value == item.value for item in cls)
 
 if  __name__ == "__main__" :  
-     
-    engineName= 'google'  
+ 
     ImgHandler = ImgHandler()  
-    s = ImgHandler.getImageEngine(engineName)  
+    s = ImgHandler.getImageEngine(Engine.google)  
     keyWord = 'cat'
     limit = 5
     s.getImage(keyWord,limit)  
