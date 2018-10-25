@@ -19,7 +19,8 @@ if __name__ == '__main__':
     imgWar = ImgWar()
     keyWord = 'cat'
     limit = 5
-    imgWar.getImg(ImgEngine.Engine.google,keyWord,limit)
+    result = imgWar.getImg(ImgEngine.Engine.google,keyWord,limit)
+    print(result)
     # imgWar.getImg('baidu',keyWord,limit)
 
 

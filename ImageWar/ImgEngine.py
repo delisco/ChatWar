@@ -27,11 +27,12 @@ class Baidu():
 
 class Bing():
     def getImage(self,keyWord,limit):
-        print('call Bing api')
         # 限制十張圖
-        limit = 10
+        limit = 5
         keyword = 'cat'
-        BingCrawler = _bing.fetch_images_from_keyword(keyword, limit)
+        result = _bing.fetch_images_from_keyword(keyword, limit)
+        print(result)
+        return result
 
 
 class ImgHandler():
@@ -58,7 +59,7 @@ class Engine(Enum):
 if  __name__ == "__main__" :  
  
     ImgHandler = ImgHandler()  
-    s = ImgHandler.getImageEngine(Engine.google)  
+    s = ImgHandler.getImageEngine(Engine.bing)  
     keyWord = 'cat'
     limit = 5
     s.getImage(keyWord,limit)  

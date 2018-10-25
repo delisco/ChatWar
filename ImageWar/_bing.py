@@ -14,6 +14,7 @@ def fetch_images_from_keyword(keyword: str, limit: int):
     current = 0
     last = ''
     adlt = '' # 成人內容
+    result = []
     while True:
         request_url='https://www.bing.com/images/async?q=' + urllib.parse.quote_plus(keyword) + '&first=' + str(current) + '&count=35&adlt=' + adlt
         request=urllib.request.Request(request_url,None,headers=urlopenheader)
@@ -24,18 +25,20 @@ def fetch_images_from_keyword(keyword: str, limit: int):
             if links[-1] == last:
                 return
             for index, link in enumerate(links):
-                if limit is not None and current + index >= limit:
-                    return
-                print(link)
+                if limit is not None and current >= limit:
+                    return result
+                result.append(link)
                 current += 1
             last = links[-1]
         except IndexError:
             print('No search results for "{0}"'.format(keyword))
             return
         time.sleep(0.1)
+    return result
 
 if __name__ == "__main__":
     # 限制十張圖
-    limit = 10
+    limit = 5
     keyword = 'cat'
-    fetch_images_from_keyword(keyword, limit)
+    result = fetch_images_from_keyword(keyword, limit)
+    print(result)
