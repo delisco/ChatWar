@@ -28,4 +28,6 @@ def stackoverflowSearch():
     else:
         print(req.status_code)
 
-stackoverflowSearch()
+
+if __name__ == '__main__':
+    stackoverflowSearch()

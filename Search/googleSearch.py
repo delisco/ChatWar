@@ -38,6 +38,10 @@ def googleSearch():
     else:
         print(req.status_code)
 
+
+if __name__ == '__main__':
+    googleSearch()
+
 # 目前可用的查詢參數
 # num = 設定一頁內顯示的搜索結果
 # lr = 限制語言
