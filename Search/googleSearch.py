@@ -1,3 +1,4 @@
+import sys
 import requests
 from urllib.parse import unquote
 from bs4 import BeautifulSoup
@@ -8,14 +9,15 @@ def parseUrl(url):
     unneededParam = '&sa'
     unneededParamIndex = tempString.index(unneededParam)
     urlResult = tempString[:unneededParamIndex]
-    Result = unquote(urlResult)
-    return Result
+    result = unquote(urlResult)
+    return result
 
 
-def googleSearch(keyword):
+def googleSearch():
+    keyword = sys.argv
     google_url = 'https://www.google.com.tw/search'
     # search param
-    my_params = {'q': keyword}
+    my_params = {'q': keyword[1]}
     req = requests.get(google_url, params=my_params)
     # Check status code
     if req.status_code == requests.codes.ok:
@@ -35,10 +37,6 @@ def googleSearch(keyword):
                 break
     else:
         print(req.status_code)
-
-
-keyword = input('請輸入關鍵字 :')
-googleSearch(keyword)
 
 # 目前可用的查詢參數
 # num = 設定一頁內顯示的搜索結果
