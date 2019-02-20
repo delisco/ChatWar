@@ -1,5 +1,6 @@
 import sys
 import requests
+import hug
 from urllib.parse import unquote
 from bs4 import BeautifulSoup
 
@@ -12,9 +13,9 @@ def parseUrl(url):
     result = unquote(urlResult)
     return result
 
-
+@hug.get('/search/', keyword="cat")
 def googleSearch():
-    keyword = sys.argv
+    # keyword = sys.argv
     google_url = 'https://www.google.com.tw/search'
     # search param
     my_params = {'q': keyword[1]}
