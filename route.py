@@ -7,3 +7,6 @@ def googleSearchFunction(keyword: hug.types.text):
     return {
         'message': googleSearch.googleSearch(keyword)
     }
+
+if __name__ == '__main__':
+    print('test')
