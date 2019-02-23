@@ -1,11 +1,11 @@
 import hug
 import Search.googleSearch as googleSearch
+import json
 
-@hug.get()
-def googleSearchFunction(keyword: hug.types.text):
-    print(keyword)
+@hug.post('/googleSearch')
+def googleSearchFunction(body):
     return {
-        'message': googleSearch.googleSearch(keyword)
+        'message': googleSearch.googleSearch(body['keyword'])
     }
 
 if __name__ == '__main__':
