@@ -1,1 +1,1 @@
-web: hug -f route.py
+worker: hug -f route.py
