@@ -13,8 +13,8 @@ def parseUrl(url):
     result = unquote(urlResult)
     return result
 
-@hug.get('/search/', keyword="cat")
-def googleSearch():
+@hug.get('/search/')
+def googleSearch(keyword):
     # keyword = sys.argv
     google_url = 'https://www.google.com.tw/search'
     # search param
