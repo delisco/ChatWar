@@ -18,6 +18,7 @@ class MessageResponse(object):
 
 @hug.post('/googleSearch')
 def googleSearchFunction(body):
+    print(body)
     client = linebot.LineBotApi(CHANNEL_ACCESS_TOKEN)
     reply_token = body['events'][0]['replyToken']
     message = MessageResponse('text', body['chat-war'][0]['message']['text'])
