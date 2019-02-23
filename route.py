@@ -21,7 +21,7 @@ def googleSearchFunction(body):
     print(body)
     client = linebot.LineBotApi(CHANNEL_ACCESS_TOKEN)
     reply_token = body['events'][0]['replyToken']
-    message = MessageResponse('text', body['events'][0]['message']['text'])
+    message = MessageResponse('text', [body['events'][0]['message']['text']])
     client.reply_message(reply_token, message)
 
 if __name__ == '__main__':
