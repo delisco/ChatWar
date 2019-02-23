@@ -1,1 +1,1 @@
-worker: hug -f route.py
+web: gunicorn route:__hug_wsgi__
