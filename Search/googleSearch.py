@@ -13,13 +13,13 @@ def parseUrl(url):
     result = unquote(urlResult)
     return result
 
-@hug.get('/search/')
 def googleSearch(keyword):
     # keyword = sys.argv
     google_url = 'https://www.google.com.tw/search'
     # search param
     my_params = {'q': keyword[1]}
     req = requests.get(google_url, params=my_params)
+    response = ''
     # Check status code
     if req.status_code == requests.codes.ok:
         bsParsingResult = BeautifulSoup(req.text, "html.parser")
@@ -28,14 +28,18 @@ def googleSearch(keyword):
         selectionResult = bsParsingResult.select('div.g > h3.r > a[href^="/url"]')
         for idx, item in enumerate(selectionResult):
             print(idx)
+            response += str(idx) + '\n'
             # title
             print("標題：" + item.text)
+            response += "標題：" + item.text + '\n'
             # url
             url = item.get('href')
             urlResult = parseUrl(url)
             print("網址：" + urlResult)
+            response += "網址：" + urlResult + '\n'
             if idx == 3:
                 break
+        return response
     else:
         print(req.status_code)
 
