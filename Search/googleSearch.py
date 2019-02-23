@@ -17,7 +17,7 @@ def googleSearch(keyword):
     # keyword = sys.argv
     google_url = 'https://www.google.com.tw/search'
     # search param
-    my_params = {'q': keyword[1]}
+    my_params = {'q': keyword}
     req = requests.get(google_url, params=my_params)
     response = ''
     # Check status code
