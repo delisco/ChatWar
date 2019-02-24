@@ -7,7 +7,7 @@ class Config:
 
     def get(self, section, key):
         config = configparser.ConfigParser()
-        file_root = os.path.abspath(__file__)
+        file_root = os.path.dirname(__file__)
         path = os.path.join(file_root, 'Config.ini')
         print(path)
         config.read(path)
