@@ -1,3 +1,2 @@
-[line_bot]
 Channel_Access_Token = 
 Channel_Secret = 
