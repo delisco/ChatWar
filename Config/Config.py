@@ -1,4 +1,4 @@
-import ConfigParser
+import configparser
 import os
 
 class Config:
@@ -6,7 +6,7 @@ class Config:
         pass
 
     def get(self, section, key):
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         file_root = os.path.dirname(__file__)
         path = os.path.join(file_root, 'Config.conf')
         config.read(path)
