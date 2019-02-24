@@ -1,19 +1,22 @@
-import hug
-import Search.googleSearch as googleSearch
-import json
-import linebot
 import base64
+import Config.Config as config
 import hashlib
 import hmac
+import hug
+import json
+import linebot
+import Search.googleSearch as googleSearch
 
-CHANNEL_ACCESS_TOKEN = 'Myk71sup6Hpu/KZ/9bAgUCiE0u//EolU3I6Exwx7JvlsJN4SRu3YCEASV16nGAwqEic+PGc+uutjC+uLYEZQ04ERYwbmROkvUFcrMUICu6ndEP1EioNzdQtbk/kRMR7PQeatI5aOg+ApNlKqqbRSrQdB04t89/1O/w1cDnyilFU='
+con = config.Config()
 
 @hug.post('/googleSearch')
 def googleSearchFunction(body):
-    client = linebot.LineBotApi(CHANNEL_ACCESS_TOKEN)
+    channelAccessToken = con.get('chatWar', 'CHANNEL_ACCESS_TOKEN')
     reply_token = body['events'][0]['replyToken']
-    message = linebot.models.TextMessage(text = googleSearch.googleSearch(body['events'][0]['message']['text']))
-    # message = linebot.models.TextMessage(text = body['events'][0]['message']['text'])
+    text = googleSearch.googleSearch(body['events'][0]['message']['text'])
+
+    client = linebot.LineBotApi(channelAccessToken)
+    message = linebot.models.TextMessage(text = text)
     client.reply_message(reply_token, message)
 
 if __name__ == '__main__':

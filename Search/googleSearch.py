@@ -4,48 +4,55 @@ import hug
 from urllib.parse import unquote
 from bs4 import BeautifulSoup
 
+SEARCH_AMOUNT = 3
 
 def parseUrl(url):
-    tempString = " " + url[7:]
+    tempString = ' ' + url[7:]
     unneededParam = '&sa'
     unneededParamIndex = tempString.index(unneededParam)
     urlResult = tempString[:unneededParamIndex]
     result = unquote(urlResult)
     return result
 
+def generateResultText(textType, content):
+    if textType == 'idx':
+        return '#' + str(content + 1) + '\n'
+    elif textType == 'title':
+        return '標題：' + content + '\n'
+    elif textType == 'url':
+        return '網址：' + content + '\n'
+
+def generateResponse(selectionResult):
+    response = ''
+    for idx, item in enumerate(selectionResult):
+        response += generateResultText('idx', idx)
+        # title
+        response += generateResultText('title', item.text)
+        # url
+        url = item.get('href')
+        urlResult = parseUrl(url)
+        response += generateResultText('url', urlResult)
+        if idx == SEARCH_AMOUNT:
+            break
+    return response
+
 def googleSearch(keyword):
-    # keyword = sys.argv
     google_url = 'https://www.google.com.tw/search'
     # search param
     my_params = {'q': keyword}
     req = requests.get(google_url, params=my_params)
-    response = ''
     # Check status code
     if req.status_code == requests.codes.ok:
-        bsParsingResult = BeautifulSoup(req.text, "html.parser")
-        # print(bsParsingResult)
+        bsParsingResult = BeautifulSoup(req.text, 'html.parser')
         # CSS selector
         selectionResult = bsParsingResult.select('div.g > h3.r > a[href^="/url"]')
-        for idx, item in enumerate(selectionResult):
-            print(idx)
-            response += str(idx) + '\n'
-            # title
-            print("標題：" + item.text)
-            response += "標題：" + item.text + '\n'
-            # url
-            url = item.get('href')
-            urlResult = parseUrl(url)
-            print("網址：" + urlResult)
-            response += "網址：" + urlResult + '\n'
-            if idx == 3:
-                break
-        return response
+        return generateResponse(selectionResult)
     else:
         print(req.status_code)
 
 
 if __name__ == '__main__':
-    googleSearch()
+    googleSearch('test')
 
 # 目前可用的查詢參數
 # num = 設定一頁內顯示的搜索結果

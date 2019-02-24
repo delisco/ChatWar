@@ -1,1 +1,1 @@
-web: gunicorn ChatWar:__hug_wsgi__
+web: gunicorn chatWar:__hug_wsgi__
